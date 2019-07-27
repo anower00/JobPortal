@@ -77,7 +77,7 @@ class JobController extends Controller
     public function company()
     {
         $company_id = Auth::user()->id;
-        $jobs = Job::where('company_id',$company_id)->get();
+        $jobs = Job::where('company_id',$company_id)->orderBy('id', 'desc')->get();
         return view('company.index',compact('jobs'));
     }
 
