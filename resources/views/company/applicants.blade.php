@@ -28,12 +28,14 @@
             <th>Applicant Name</th>
             <th>Email</th>
             <th>Skills</th>
+            <th>resume</th>
         </tr>
         @forelse($applicants as $applicant)
         <tr>
             <td>{{ $applicant->user->first_name .' '. $applicant->user->last_name}}</td>
             <td>{{ $applicant->user->email }}</td>
             <td>{{ $applicant->user->skills }}</td>
+            <td><iframe src="{{ asset($applicant->user->resume) }}"></iframe></td>
         </tr>
     @empty
             <tr><td colspan="3" class="text-center">No Applicants Yet!</td></tr>
