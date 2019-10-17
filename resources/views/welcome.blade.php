@@ -1,61 +1,100 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-    @if(!empty(auth()->user()->id) && auth()->user()->user_type==1)
-    @include('layouts.sidebar')
-@endif
-    @forelse($jobs as $job)
-        @if(!empty(auth()->user()->id) && auth()->user()->user_type==1)
-        <?php
-        $applied = 0;
-        $user_id = auth()->user()->id;
-        foreach ($job->apply_jobs as $apply_job){
-            if ($apply_job->user_id == $user_id){
-                $applied = 1;
-                break;
-            }
-        }
-        ?>
-        @endif
-        <div class="content">
-            @if(!empty(auth()->user()->id) && auth()->user()->user_type==1)
-            @if($applied == 0)
-                <a type="button" href="{{ route('apply_job',$job->id) }}" onclick="
-            if(confirm('Do You Want To Apply This Job?'))
-            {
+        <title>Laravel</title>
 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
             }
-            else
-            {
-            event.preventDefault();
+
+            .full-height {
+                height: 100vh;
             }
-            " class="btn btn-success text-button">Apply</a>
-            @else
-                <p class="text-button" style="color: green">Already Applied</p>
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 84px;
+            }
+
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
             @endif
-            @else
-                <a type="button" href="{{ route('login') }}"  class="btn btn-success text-button" @if ($loop->first) style="margin-top: 64px !important;" @endif>Apply</a>
-            @endif
-            <div class="middle" @if ($loop->first) style="margin-top: 56px" @endif>
-                <h4>{{ $job->job_title }}</h4>
-                <br>
-                <h5>{{ $job->company_name->business_name }}</h5>
-                <br>
-                <h5>Job Description:</h5>
-                <p>{{ $job->job_description }}</p>
-                <h5>Salary:</h5>
-                <p>{{ $job->salary }}</p>
-                <h5>Location:</h5>
-                <p>{{ $job->location }}</p>
-                <h5>Country:</h5>
-                <p>{{ $job->country }}</p>
+
+            <div class="content">
+                <div class="title m-b-md">
+                    Laravel
+                </div>
+
+                <div class="links">
+                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://blog.laravel.com">Blog</a>
+                    <a href="https://nova.laravel.com">Nova</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://vapor.laravel.com">Vapor</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
             </div>
         </div>
-        @empty
-        <br><br><br>
-        <h2 style="text-align: center">No Job Available Now</h2>
-    @endforelse
-@endsection
-
-
-
+    </body>
+</html>

@@ -8,9 +8,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | This file is for storing the credentials for third party services such
-    | as Stripe, Mailgun, SparkPost and others. This file provides a sane
-    | default location for this type of information, allowing packages
-    | to have a conventional place to find your various credentials.
+    | as Mailgun, SparkPost and others. This file provides a sane default
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
     |
     */
 
@@ -33,15 +33,18 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
-
-    'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-        'webhook' => [
-            'secret' => env('STRIPE_WEBHOOK_SECRET'),
-            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
-        ],
-    ],
+    //for testing purpose
+    'facebook' => [
+        'client_id' => '1670705249727060',
+        'client_secret' => '0f8dca6df23022481e615a3aec27ef60',
+        'redirect' => 'http://localhost/newsportal_final/public/calback/facebook',
+      ],
+      
+    //actual one
+    // 'facebook' => [
+    //     'client_id' => 'xxxx',
+    //     'client_secret' => 'xxx',
+    //     'redirect' => 'https://www.tutsmake.com/laravel-example/callback/facebook',
+    //   ], 
 
 ];

@@ -28,14 +28,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-//    protected $redirectTo = '/home';
-    protected function redirectTo()
-    {
-        if (auth()->user()->user_type == "1") {
-            return '/home';
-        }
-        return '/company';
-    }
+    protected $redirectTo = 'backend/dashboard';
+
     /**
      * Create a new controller instance.
      *
@@ -55,8 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -70,25 +63,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if ($data['user_type'] == 1){
+        
         return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+            'name' => $data['name'],
             'email' => $data['email'],
-            'profile_picture' => 'profile_pic/default/profile.png',
             'password' => Hash::make($data['password']),
-            'user_type' => $data['user_type'],
         ]);
-        }else{
-            return User::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'business_name' => $data['business_name'],
-                'profile_picture' => 'profile_pic/default/profile.png',
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'user_type' => $data['user_type'],
-            ]);
-        }
     }
 }

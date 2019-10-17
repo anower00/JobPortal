@@ -25,14 +25,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-//    protected $redirectTo = '/home';
-    protected function redirectTo()
-    {
-        if (auth()->user()->user_type == "1") {
-            return '/home';
-        }
-        return '/company';
-    }
+    protected $redirectTo = 'backend/dashboard';
+
     /**
      * Create a new controller instance.
      *
@@ -42,4 +36,5 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
 }
